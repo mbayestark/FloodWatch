@@ -24,12 +24,20 @@ const supabase = createClient(
 const JWT_SECRET='secret'
 const JWT_EXPIRES_IN = '2h';
    
-// Configure CORS middleware (add before routes)
-app.use(cors({
-  origin: 'http://localhost:3002', // Update with your frontend origin
+// Configure CORS middleware 
+FRONTEND_URL='https://floodwatch-wxrl.onrender.com'
+const corsOptions = {
+  origin: [
+     FRONTEND_URL, // Render frontend URL
+    'http://localhost:3002' 
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true
-}));
+};
 
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Handle preflight requests
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'Front')));
