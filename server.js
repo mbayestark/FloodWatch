@@ -11,33 +11,23 @@ dotenv.config();
 const app = express();
 const port = 3002;
 
-const SUPABASE_URL='https://lrpttuqpjdricjcogzds.supabase.co'
-const SUPABASE_SERVICE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxycHR0dXFwamRyaWNqY29nemRzIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc0MjA3OTY1MywiZXhwIjoyMDU3NjU1NjUzfQ.IJLR15FJ1__FvNLNqz5scBoBLUuKR3hfrjO8ZNZgQyU'
 
 // Supabase Client Configuration
 const supabase = createClient(
-  SUPABASE_URL,
-  SUPABASE_SERVICE_KEY
+  process.env.SUPABASE_URL,
+  process.env.SUPABASE_SERVICE_KEY
 );
 
 // JWT Configuration
-const JWT_SECRET='secret'
+const JWT_SECRET = process.env.JWT_SECRET || 'your-strong-secret-key';
 const JWT_EXPIRES_IN = '2h';
    
-// Configure CORS middleware 
-FRONTEND_URL='https://floodwatch-wxrl.onrender.com'
-const corsOptions = {
-  origin: [
-     FRONTEND_URL, // Render frontend URL
-    'http://localhost:3002' 
-  ],
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+// Configure CORS middleware (add before routes)
+app.use(cors({
+  origin: 'http://localhost:3002', // Update with your frontend origin
   credentials: true
-};
+}));
 
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions)); // Handle preflight requests
 // Middleware
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'Front')));
