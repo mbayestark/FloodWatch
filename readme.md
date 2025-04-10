@@ -1,4 +1,4 @@
-# 🌊 Floodwatcher
+# 🌊 FloodWatch
 
 Floodwatcher is a digital storytelling and advocacy platform centered on the **flooding crisis in Wakhinane, Senegal**. Rather than focusing solely on prevention, this project empowers local residents to **share their experiences**, **attract external support**, and **promote tech-based solutions** to improve urban resilience.
 
